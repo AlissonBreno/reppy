@@ -103,16 +103,16 @@
               <h:form>
               	<div class="form-group">
 				    <label for="idNome">Nome</label>
-				    <h:inputText class="form-control form-control-lg" id="idNome" value="${cidController.cid.name}"/>
+				    <h:inputText class="form-control form-control-lg" id="idNome" value="${tipoUsuarioController.tipoUsuario.name}"/>
 				</div>
 				<div class="form-group">
 				    <label for="idDescricao">Descrição</label>
-				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${cidController.cid.descricao}"/>
+				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoUsuarioController.tipoUsuario.descricao}"/>
 				</div>
 				
 				<div class="form-group d-flex justify-content-between">
 					<a href="http://localhost:8080/reppy/pages/usuarios/tipo/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{cidController.saveitem}" class="btn btn-success btn-lg"/>
+					<h:commandButton id="salvar" value="Salvar" action="#{tipoUsuarioController.salvarDados}" class="btn btn-success btn-lg"/>
 				</div>
               </h:form>
             </div>

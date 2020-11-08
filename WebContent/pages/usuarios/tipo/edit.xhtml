@@ -11,6 +11,10 @@
   <meta name="author" content=""></meta>
 
   <title>Reppy - Usuários</title>
+  <f:metadata>
+    <f:viewParam name="id" value="#{tipoUsuarioController.tipoUsuario.id}"/>
+    <f:viewAction action="#{tipoUsuarioController.carregarPeloId}"/>
+  </f:metadata>
 
 
   <link href="http://localhost:8080/reppy/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"></link>
@@ -54,8 +58,8 @@
             <a class="collapse-item active" href="http://localhost:8080/reppy/pages/usuarios/tipo/list.xhtml">Tipo de Usuário</a>
           </div>
         </div>
-      </li>   
-      
+      </li>
+
       <hr class="sidebar-divider d-none d-md-block"></hr>
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -95,48 +99,29 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tipos de Usuários</h1>
-            <a href="http://localhost:8080/reppy/pages/usuarios/tipo/add.xhtml" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar</a>
+            <h1 class="h3 mb-0 text-gray-800">Cadastrar tipo de usuário</h1>
           </div>
           
-          <!-- Basic Card Example -->
           <div class="card shadow mb-4">
-            	<div class="card-body">
-            		<h:form>
-            			<h:dataTable value="#{tipoUsuarioController.tipoUsuarios}" var="tipoUsuario" class="table table-hover">
-            				
-            				<h:column>
-            					<f:facet name="header">
-			            			<h:outputLabel class="col-1">
-			                            #
-			                        </h:outputLabel>
-                        		</f:facet>
-            					<h:outputText value="#"/>
-            				</h:column>
-            				
-            				<h:column class="text-center">
-            					<f:facet name="header" >
-            						<h:outputLabel class="col-8">
-			                            Nome
-			                        </h:outputLabel>
-			                    </f:facet>
-            					<h:outputText value="#{tipoUsuario.name}"/>
-            				</h:column>
-            				<h:column>
-            					<f:facet name="header" >
-            						<h:outputLabel class="col-3 text-right">
-			                            Ações
-			                        </h:outputLabel>
-			                    </f:facet> 
-            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{tipoUsuarioController.redirecionar(tipoUsuario)}" value="Edit"/>
-								<h:commandLink class="btn btn-danger" action="#{tipoUsuarioController.remover(tipoUsuario)}" value="Delete"/>
-            				</h:column>
-            			
-            			</h:dataTable>
-            		</h:form>
-            	</div>
+            <div class="card-body">
+              <h:form>
+              	<div class="form-group">
+				    <label for="idNome">Nome</label>
+				    <h:inputText class="form-control form-control-lg" id="idNome" value="${tipoUsuarioController.tipoUsuario.name}"/>
+				</div>
+				<div class="form-group">
+				    <label for="idDescricao">Descrição</label>
+				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoUsuarioController.tipoUsuario.descricao}"/>
+				</div>
+				
+				<div class="form-group d-flex justify-content-between">
+					<a href="http://localhost:8080/reppy/pages/usuarios/tipo/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
+					<h:commandButton id="salvar" value="Salvar" action="#{tipoUsuarioController.salvarDados}" class="btn btn-success btn-lg"/>
+				</div>
+              </h:form>
+            </div>
           </div>
-	
+
         </div>
         <!-- /.container-fluid -->
 
@@ -147,7 +132,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright - Reppy 2020</span>
+            <span>Copyright - Meddy 2020</span>
           </div>
         </div>
       </footer>
