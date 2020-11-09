@@ -111,7 +111,38 @@
           <!-- Basic Card Example -->
           <div class="card shadow mb-4">
             	<div class="card-body">
-            		
+            		<h:form>
+            			<h:dataTable value="#{usuarioController.todosUsuarios}" var="usuario" class="table table-hover">
+            				
+            				<h:column>
+            					<f:facet name="header">
+			            			<h:outputLabel class="col-1">
+			                            #
+			                        </h:outputLabel>
+                        		</f:facet>
+            					<h:outputText value="#"/>
+            				</h:column>
+            				
+            				<h:column class="text-center">
+            					<f:facet name="header" >
+            						<h:outputLabel class="col-8">
+			                            Nome
+			                        </h:outputLabel>
+			                    </f:facet>
+            					<h:outputText value="#{usuario.nome}"/>
+            				</h:column>
+            				<h:column>
+            					<f:facet name="header" >
+            						<h:outputLabel class="col-3 text-right">
+			                            Ações
+			                        </h:outputLabel>
+			                    </f:facet> 
+            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{usuarioController.redirecionar(usuario)}" value="Edit"/>
+								<h:commandLink class="btn btn-danger" action="#{usuarioController.remover(usuario)}" value="Delete"/>
+            				</h:column>
+            			
+            			</h:dataTable>
+            		</h:form>
             	</div>
           </div>
 

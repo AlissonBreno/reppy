@@ -11,6 +11,11 @@
   <meta name="author" content=""></meta>
 
   <title>Reppy - Usuários</title>
+  <f:metadata>
+    <f:viewParam name="id" value="#{usuarioController.usuario.id}"/>
+    <f:viewAction action="#{usuarioController.carregarPeloId}"/>
+  </f:metadata>
+  
 
 
   <link href="http://localhost:8080/reppy/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"></link>
@@ -95,7 +100,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastrar de usuário</h1>
+            <h1 class="h3 mb-0 text-gray-800">Editar usuário</h1>
           </div>
           
           <div class="card shadow mb-4">
