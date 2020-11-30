@@ -10,7 +10,7 @@
   <meta name="description" content=""></meta>
   <meta name="author" content=""></meta>
 
-  <title>Reppy - Usuários</title>
+  <title>Reppy - Financeiro</title>
 
 
   <link href="http://localhost:8080/reppy/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"></link>
@@ -50,14 +50,14 @@
       </div>
 
       <!-- Nav Item - Usuários -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           <i class="fas fa-fw fa-user"></i>
           <span>Usuários</span>
         </a>
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item active" href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml">Usuário</a>
+            <a class="collapse-item" href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml">Usuário</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/usuarios/tipo/list.xhtml">Tipo de Usuário</a>
           </div>
         </div>
@@ -72,7 +72,7 @@
       </div>
       
       <!-- Nav Item - Contas -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-receipt"></i>
           <span>Financeiro</span>
@@ -81,7 +81,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/contas/list.xhtml">Contas</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/transacoes/list.xhtml">Transações</a>
-            <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml">Tipo de conta</a>
+            <a class="collapse-item active" href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml">Tipo de conta</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/status/list.xhtml">Status</a>
           </div>
         </div>
@@ -155,42 +155,24 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastrar de usuário</h1>
+            <h1 class="h3 mb-0 text-gray-800">Cadastrar Tipo de Conta</h1>
           </div>
           
           <div class="card shadow mb-4">
             <div class="card-body">
               <h:form>
-              	<div class="form-group">
-                    <label for="idLogin">Login</label>
-                    <h:inputText class="form-control form-control-lg" id="idLogin" value="${usuarioController.usuario.login}"/>
-                </div>
-                <div class="form-group">
-                    <label for="idSenha">Senha</label>
-                    <h:inputText class="form-control form-control-lg" id="idSenha" value="${usuarioController.usuario.senha}"/>
-                </div> 
-                <div class="form-group">
+             	<div class="form-group">
                     <label for="idNome">Nome</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.nome}"/>
+                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.senha}"/>
                 </div> 
+              	 		
                 <div class="form-group">
-                    <label for="idTelefone">Telefone</label>
-                    <h:inputText class="form-control form-control-lg" id="idTelefone" value="${usuarioController.usuario.telefone}"/>
-                </div> 
-                <div class="form-group">
-                    <label for="idTipoUsuario">Tipo de Usuario</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idTipoUsuario" value="#{usuarioController.idTipoUsuario}">
-	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
-                    	/>
-                  </h:selectOneMenu>
-                </div> 		
+				    <label for="idDescricao">Descrição</label>
+				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoUsuarioController.tipoUsuario.descricao}"/>
+				</div>               
 				
 				<div class="form-group d-flex justify-content-between">
-					<a href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
+					<a href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
 					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
 				</div> 
               </h:form>
@@ -207,7 +189,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright - Meddy 2020</span>
+            <span>Copyright - Reppy 2020</span>
           </div>
         </div>
       </footer>

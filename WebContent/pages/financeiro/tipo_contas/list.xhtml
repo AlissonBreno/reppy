@@ -10,7 +10,7 @@
   <meta name="description" content=""></meta>
   <meta name="author" content=""></meta>
 
-  <title>Reppy - Usuários</title>
+  <title>Reppy - Financeiro</title>
 
 
   <link href="http://localhost:8080/reppy/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"></link>
@@ -50,14 +50,14 @@
       </div>
 
       <!-- Nav Item - Usuários -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           <i class="fas fa-fw fa-user"></i>
           <span>Usuários</span>
         </a>
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item active" href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml">Usuário</a>
+            <a class="collapse-item" href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml">Usuário</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/usuarios/tipo/list.xhtml">Tipo de Usuário</a>
           </div>
         </div>
@@ -72,7 +72,7 @@
       </div>
       
       <!-- Nav Item - Contas -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-receipt"></i>
           <span>Financeiro</span>
@@ -81,7 +81,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/contas/list.xhtml">Contas</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/transacoes/list.xhtml">Transações</a>
-            <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml">Tipo de conta</a>
+            <a class="collapse-item active" href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml">Tipo de conta</a>
             <a class="collapse-item" href="http://localhost:8080/reppy/pages/financeiro/status/list.xhtml">Status</a>
           </div>
         </div>
@@ -155,46 +155,46 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastrar de usuário</h1>
+            <h1 class="h3 mb-0 text-gray-800">Tipo de Contas</h1>
+            <a href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/add.xhtml" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar</a>
           </div>
           
+          <!-- Basic Card Example -->
           <div class="card shadow mb-4">
-            <div class="card-body">
-              <h:form>
-              	<div class="form-group">
-                    <label for="idLogin">Login</label>
-                    <h:inputText class="form-control form-control-lg" id="idLogin" value="${usuarioController.usuario.login}"/>
-                </div>
-                <div class="form-group">
-                    <label for="idSenha">Senha</label>
-                    <h:inputText class="form-control form-control-lg" id="idSenha" value="${usuarioController.usuario.senha}"/>
-                </div> 
-                <div class="form-group">
-                    <label for="idNome">Nome</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.nome}"/>
-                </div> 
-                <div class="form-group">
-                    <label for="idTelefone">Telefone</label>
-                    <h:inputText class="form-control form-control-lg" id="idTelefone" value="${usuarioController.usuario.telefone}"/>
-                </div> 
-                <div class="form-group">
-                    <label for="idTipoUsuario">Tipo de Usuario</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idTipoUsuario" value="#{usuarioController.idTipoUsuario}">
-	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
-                    	/>
-                  </h:selectOneMenu>
-                </div> 		
-				
-				<div class="form-group d-flex justify-content-between">
-					<a href="http://localhost:8080/reppy/pages/usuarios/usuario/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
-				</div> 
-              </h:form>
-            </div>
+            	<div class="card-body">
+            		<h:form>
+            			<h:dataTable value="#{usuarioController.todosUsuarios}" var="usuario" class="table table-hover">
+            				
+            				<h:column>
+            					<f:facet name="header">
+			            			<h:outputLabel class="col-1">
+			                            #
+			                        </h:outputLabel>
+                        		</f:facet>
+            					<h:outputText value="#"/>
+            				</h:column>
+            				
+            				<h:column class="text-center">
+            					<f:facet name="header" >
+            						<h:outputLabel class="col-8">
+			                            Tipo
+			                        </h:outputLabel>
+			                    </f:facet>
+            					<h:outputText value="à Pagar"/>
+            				</h:column>
+            				<h:column>
+            					<f:facet name="header" >
+            						<h:outputLabel class="col-3 text-right">
+			                            Ações
+			                        </h:outputLabel>
+			                    </f:facet> 
+            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{usuarioController.redirecionar(usuario)}" value="Edit"/>
+								<h:commandLink class="btn btn-danger" action="#{usuarioController.remover(usuario)}" value="Delete"/>
+            				</h:column>
+            			
+            			</h:dataTable>
+            		</h:form>
+            	</div>
           </div>
 
         </div>
@@ -207,7 +207,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright - Meddy 2020</span>
+            <span>Copyright - Reppy 2020</span>
           </div>
         </div>
       </footer>
