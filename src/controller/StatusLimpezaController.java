@@ -19,6 +19,7 @@ public class StatusLimpezaController {
 	
 	private StatusLimpeza statusLimpeza = new StatusLimpeza();
 	private Integer IdUsuario;
+	
 	public Integer getIdUsuario() {
 		return IdUsuario;
 	}
@@ -27,31 +28,28 @@ public class StatusLimpezaController {
 		IdUsuario = idUsuario;
 	}
 
-	public Integer getIdLimpeza() {
-		return IdLimpeza;
+	public Integer getLimpeza() {
+		return Limpeza;
 	}
 
-	public void setIdLimpeza(Integer idLimpeza) {
-		IdLimpeza = idLimpeza;
+	public void setIdLimpeza(Integer limpeza) {
+		this.Limpeza = limpeza;
 	}
 
 	public void setStatusLimpeza(StatusLimpeza statusLimpeza) {
 		this.statusLimpeza = statusLimpeza;
 	}
 
-	private Integer IdLimpeza;
+	private Integer Limpeza;
 	
 	public void salvar() {
-		
-	System.out.println("Salvando..." + statusLimpeza.getStatus());
 		
 		StatusLimpezaDao dao = new StatusLimpezaDao();
 		
 		try {
 			
-			Limpeza l = new LimpezaDao().listaPorId(idLimpeza)
-			Limpeza.setIdLimpeza(l);
-			
+			Limpeza l = new LimpezaDao().listaPorId(Limpeza);
+			StatusLimpeza.setLimpeza(l);
 			
 			if (statusLimpeza.getId() == null) {
 			dao.adiciona(statusLimpeza);
@@ -67,14 +65,14 @@ public class StatusLimpezaController {
 		}
 		
 		statusLimpeza = new StatusLimpeza();
-		limpeza = null;
-		usuario = null;
+		Limpeza = null;
+		IdUsuario = null;
 	}
 	
 	public void cancelar() {
 		statusLimpeza = new StatusLimpeza();
-		usuario = null;
-		limpeza = null;
+		IdUsuario = null;
+		Limpeza = null;
 	}
 	
 	public List<StatusLimpeza> getTodasLimpezas(){
@@ -98,7 +96,7 @@ public class StatusLimpezaController {
 		try {
 			statusLimpeza = dao.listaPorId(this.statusLimpeza.getId());
 			IdUsuario = this.statusLimpeza.getUsuario().getId();
-			IdLimpeza = this.statusLimpeza.getLimpeza().getId();
+			Limpeza = this.statusLimpeza.getLimpeza().getId();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -125,25 +123,10 @@ public class StatusLimpezaController {
 	public void carregar(StatusLimpeza p) {
 		statusLimpeza = p;
 		
-		IdLimpeza = p.getLimpeza().getId();
+		Limpeza = p.getLimpeza().getId();
 		IdUsuario = p.getUsuario().getId();
 	}
 	
-	public List<StatusLimpeza> getTodasLimpeza(){
-		
-		List<StatusLimpeza> lista = null;
-		try {
-		lista = new StatusLimpeza().listaTodos();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}catch (SQLException e) {	
-			e.printStackTrace();
-		}
-		
-		
-		
-		return lista;
-	}
 	
 	public String redirecionar(StatusLimpeza u) {
 		this.statusLimpeza = u;

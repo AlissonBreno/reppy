@@ -6,40 +6,34 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
+import modelo.Contas;
+import modelo.Recebimentos;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 
 public class RecebimentosDao{
 	
-	public void adiciona(Usuario p) throws ClassNotFoundException, SQLException {
+	public void adiciona(Recebimentos p) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"INSERT INTO Usuario ( login, senha, Nome, Telefone, idTipoUsuario )" +
-		"VALUES (?, ?, ?, ?, ?)";
+			"INSERT INTO Recebimentos ( idUsuario, idConta )" +
+		"VALUES (?, ?)";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1,  p.getLogin());
-		comandoSql.setString(2, p.getSenha());
-		comandoSql.setString(3, p.getNome());
-		comandoSql.setString(4, p.getTelefone());
-		comandoSql.setInt(5, p.getTipoUsuario().getId());
+		comandoSql.setInt(1, p.getUsuario().getId());
+		comandoSql.setInt(2, p.getConta().getId());
 		
 		comandoSql.execute();
 		Conexao.getInstance().commit();
 	}
 
-	public void atualiza(Usuario p) throws ClassNotFoundException, SQLException {
+	public void atualiza(Recebimentos p) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"UPDATE Usuario SET login=?, senha=?, Nome=?, "
-			+ "Telefone=?, idTipoUsuario=? WHERE idUsuario=?";
+			"UPDATE Recebimentos SET idUsuario=?, idConta=? WHERE idRecebimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1,  p.getLogin());
-		comandoSql.setString(2, p.getSenha());
-		comandoSql.setString(3, p.getNome());
-		comandoSql.setString(4, p.getTelefone());
-		comandoSql.setInt(5, p.getTipoUsuario().getId());
-		comandoSql.setInt(6, p.getId());
+		comandoSql.setInt(1, p.getUsuario().getId());
+		comandoSql.setInt(2, p.getConta().getId());
+		comandoSql.setInt(3, p.getId());
 		
 		comandoSql.execute();
 		Conexao.getInstance().commit();
@@ -47,7 +41,7 @@ public class RecebimentosDao{
 	
 	public void remove(int id) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"DELETE FROM Usuario WHERE idUsuario=?";
+			"DELETE FROM Recebimentos WHERE idRecebimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setInt(1, id);
@@ -56,30 +50,36 @@ public class RecebimentosDao{
 		Conexao.getInstance().commit();
 	}
 	
-	public List<Usuario> listaTodos() throws ClassNotFoundException, SQLException{
-		List<Usuario> lista = new LinkedList<Usuario>();
+	public List<Recebimentos> listaTodos() throws ClassNotFoundException, SQLException{
+		List<Recebimentos> lista = new LinkedList<Recebimentos>();
 		
-		String sql = "SELECT * FROM Usuario inner join TipoUsuario on " +
-					"usuario.idTipoUsuario = TipoUsuario.idTipoUsuario";
+		String sql = "SELECT * FROM Recebimentos inner join Usuario on " +
+					"Recebimentos.idUsuario = Usuario.idUsuario" +
+					"inner join Contas on " +
+					"Recebimentos.idContas = Contas.idContas"
+				;
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		
 		ResultSet rs = comandoSql.executeQuery();
 		
 		while (rs.next()) {
-			Usuario p = new Usuario();
-			p.setId(rs.getInt("idUsuario"));
-			p.setLogin(rs.getString("login"));
-			p.setSenha(rs.getString("senha"));
-			p.setNome(rs.getString("Nome"));
-			p.setTelefone(rs.getString("Telefone"));
+			Recebimentos p = new Recebimentos();
+			p.setId(rs.getInt("idRecebimentos"));
 			
-			TipoUsuario t = new TipoUsuario();
+			Usuario t = new Usuario();
 			
-			t.setId(rs.getInt("idTipoUsuario"));
-			t.setName(rs.getString("Nome"));
+			t.setId(rs.getInt("idUsuario"));
 			
-			p.setTipoUsuario(t);
+			p.setUsuario(t);
+			
+			Contas c = new Contas();
+			
+			c.setId(rs.getInt("idConta"));
+			
+			p.setConta(c);
+			
+			
 			
 			lista.add(p);
 		}
@@ -87,28 +87,29 @@ public class RecebimentosDao{
 		return lista;
 	}
 	
-	public Usuario listaPorId(int id) throws ClassNotFoundException, SQLException{
-		String sql = "SELECT * FROM Usuario WHERE idUsuario=?";
+	public Recebimentos listaPorId(int id) throws ClassNotFoundException, SQLException{
+		String sql = "SELECT * FROM Recebimentos WHERE idRecebimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setInt(1, id);
 		
 		ResultSet rs = comandoSql.executeQuery();
 		
-		Usuario p = null;
+		Recebimentos p = null;
 		
 		if (rs.next()) {
-			p = new Usuario();
-			p.setId(rs.getInt("idUsuario"));
-			p.setLogin(rs.getString("login"));
-			p.setSenha(rs.getString("senha"));
-			p.setNome(rs.getString("Nome"));
-			p.setTelefone(rs.getString("Telefone"));
+			p = new Recebimentos();
+			p.setId(rs.getInt("idRecebimentos"));
+					
+			Usuario u = new Usuario();
+			u.setId(rs.getInt("idUsuario"));
 			
-			TipoUsuario tu = new TipoUsuario();
-			tu.setId(rs.getInt("idTipoUsuario"));
+			p.setUsuario(u);
+		
+			Contas c = new Contas();
+			c.setId(rs.getInt("idConta"));
 			
-			p.setTipoUsuario(tu);
+			p.setConta(c);
 		}
 		
 		return p;

@@ -20,7 +20,7 @@ public class TipoContas {
 	}
 
 	public void setTipo(String tipo) {
-		Tipo = tipo;
+		this.Tipo = tipo;
 	}
 
 	public String getCredor() {
@@ -28,7 +28,7 @@ public class TipoContas {
 	}
 
 	public void setCredor(String credor) {
-		Credor = credor;
+		this.Credor = credor;
 	}
 
 }

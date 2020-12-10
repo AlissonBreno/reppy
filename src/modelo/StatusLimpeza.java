@@ -1,10 +1,12 @@
 package modelo;
 
+import java.util.List;
+
 public class StatusLimpeza {
 	private Integer id;
 	private Boolean Status;
 	private Usuario Usuario;
-	private Limpeza Limpeza;
+	private static Limpeza Limpeza;
 	
 	public StatusLimpeza() {}
 
@@ -36,9 +38,10 @@ public class StatusLimpeza {
 		return Limpeza;
 	}
 
-	public void setLimpeza(Limpeza limpeza) {
+	public static void setLimpeza(Limpeza limpeza) {
 		Limpeza = limpeza;
 	}
+
 
 	
 }

@@ -163,36 +163,36 @@
               <h:form>
              	<div class="form-group">
                     <label for="idMorador">Morador</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idMorador" value="#{usuarioController.idTipoUsuario}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idMorador" value="#{usuarioController.usuario}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+	                    <f:selectItems value ="#{usuarioController.todosUsuarios}"	
+	                    	var ="usuario" 
+	                    	itemLabel="#{usuario.nome}"
+                    		itemValue="#{usuario.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div> 
               	 		
                 <div class="form-group">
                     <label for="idData">Data</label>
-                    <h:inputText class="form-control form-control-lg" id="idData" value="${usuarioController.usuario.senha}"/>
+                    <h:inputText class="form-control form-control-lg" id="idData" value="${LimpezaController.Limpeza}"/>
                 </div> 
 				
 				<div class="form-group">
                     <label for="idStatus">Status</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idStatus" value="#{usuarioController.idTipoUsuario}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idStatus" value="#{StatusLimpezaController.Status}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
 	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+	                    	var ="idstatus" 
+	                    	itemLabel="#{TipoLimpeza.Tipo}"
+                    		itemValue="#{TipoLimpeza.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div>               
 				
 				<div class="form-group d-flex justify-content-between">
 					<a href="http://localhost:8080/reppy/pages/limpeza/limpeza/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
+					<h:commandButton id="salvar" value="Salvar" action="#{LimpezaController.salvar}" class="btn btn-success btn-lg"/>
 				</div> 
               </h:form>
             </div>

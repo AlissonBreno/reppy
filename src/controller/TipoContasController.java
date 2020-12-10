@@ -17,11 +17,8 @@ public class TipoContasController {
 	private TipoContas tipoContas = new TipoContas();
 	
 	public void salvarDados() {
-		TipoContasDao dao = new TipoContasDao();
 		
-		System.out.println("Id: " + tipoContas.getId());
-		System.out.println("Tipo: " + tipoContas.getTipo());
-		System.out.println("Credor: " + tipoContas.getCredor());
+		TipoContasDao dao = new TipoContasDao();
 		
 		try {
 			if(tipoContas.getId() == null) {				
