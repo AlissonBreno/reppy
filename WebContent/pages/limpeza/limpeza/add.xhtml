@@ -175,14 +175,14 @@
               	 		
                 <div class="form-group">
                     <label for="idData">Data</label>
-                    <h:inputText class="form-control form-control-lg" id="idData" value="${LimpezaController.Limpeza}"/>
+                    <h:inputText class="form-control form-control-lg" id="idData" value="${LimpezaController.Limpeza.DataMarcada}"/>
                 </div> 
 				
 				<div class="form-group">
                     <label for="idStatus">Status</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idStatus" value="#{StatusLimpezaController.Status}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idStatus" value="#{StatusLimpezaController.Status.Status}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
+	                    <f:selectItems value ="#{statusLimpezaController.listatodos}"	
 	                    	var ="idstatus" 
 	                    	itemLabel="#{TipoLimpeza.Tipo}"
                     		itemValue="#{TipoLimpeza.id}" 

@@ -18,7 +18,12 @@ public class TipoContasController {
 	
 	public void salvarDados() {
 		
+		System.out.println("Salvando..." + tipoContas.getTipo());
+		
 		TipoContasDao dao = new TipoContasDao();
+		
+		
+		
 		
 		try {
 			if(tipoContas.getId() == null) {				
@@ -36,7 +41,7 @@ public class TipoContasController {
 		
 	}
 	
-	public List<TipoContas> getTipoContas(){
+	public List<TipoContas> getTodosTipoContas(){
 		List<TipoContas> lista = null;
 		
 		try {

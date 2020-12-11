@@ -10,8 +10,10 @@ import modelo.TipoContas;
 
 public class TipoContasDao {
 	
+	
+	
 	public void adiciona(TipoContas tu) throws ClassNotFoundException, SQLException {
-		String sql = "INSERT INTO TipoContas (TipodeConta, Credor) VALUE (?, ?)";
+		String sql = "INSERT INTO tiposdeconta (TipodeConta, Credor) VALUE (?, ?)";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setString(1, tu.getTipo());
@@ -23,7 +25,7 @@ public class TipoContasDao {
 
 	public void atualiza(TipoContas tu) throws ClassNotFoundException, SQLException {
 		
-		String sql = "UPDATE tiposdeconta SET TipodeConta=?, Credor=? WHERE idTiposdeContas=?";
+		String sql = "UPDATE tiposdeconta SET TipodeConta=?, Credor=? WHERE idTiposdeConta=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setString(1, tu.getTipo());
@@ -56,7 +58,7 @@ public class TipoContasDao {
 		
 		while (rs.next()) {
 			TipoContas tu = new TipoContas();
-			tu.setId(rs.getInt("idTiposdeContas"));
+			tu.setId(rs.getInt("idTiposdeConta"));
 			tu.setTipo(rs.getString("Tipo"));
 			tu.setCredor(rs.getString("Credor"));
 			lista.add(tu);
@@ -67,7 +69,7 @@ public class TipoContasDao {
 	
 	public TipoContas listaPorId(int id) throws ClassNotFoundException, SQLException{
 		
-		String sql = "SELECT * FROM TipoContas WHERE idTipoContas=?";
+		String sql = "SELECT * FROM tiposdeconta WHERE idTiposdeConta=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setInt(1, id);

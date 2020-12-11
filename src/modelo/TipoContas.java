@@ -5,7 +5,9 @@ public class TipoContas {
 	private String Tipo;
 	private String Credor;
 	
-	public TipoContas() {}
+	public TipoContas() {
+		
+	}
 
 	public Integer getId() {
 		return id;
