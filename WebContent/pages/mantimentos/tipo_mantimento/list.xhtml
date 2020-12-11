@@ -163,7 +163,7 @@
           <div class="card shadow mb-4">
             	<div class="card-body">
             		<h:form>
-            			<h:dataTable value="#{usuarioController.todosUsuarios}" var="usuario" class="table table-hover">
+            			<h:dataTable value="#{tipoMantimentosController.tipoMantimentos}" var="tipoMantimento" class="table table-hover">
             				
             				<h:column>
             					<f:facet name="header">
@@ -177,10 +177,10 @@
             				<h:column class="text-center">
             					<f:facet name="header" >
             						<h:outputLabel class="col-8">
-			                            Tipo
+			                            Nome
 			                        </h:outputLabel>
 			                    </f:facet>
-            					<h:outputText value="Não perecível"/>
+            					<h:outputText value="#{tipoMantimento.nome}"/>
             				</h:column>
             				<h:column>
             					<f:facet name="header" >
@@ -188,8 +188,8 @@
 			                            Ações
 			                        </h:outputLabel>
 			                    </f:facet> 
-            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{usuarioController.redirecionar(usuario)}" value="Edit"/>
-								<h:commandLink class="btn btn-danger" action="#{usuarioController.remover(usuario)}" value="Delete"/>
+            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{tipoMantimentosController.redirecionar(tipoMantimento)}" value="Edit"/>
+								<h:commandLink class="btn btn-danger" action="#{tipoMantimentosController.remover(tipoMantimento)}" value="Delete"/>
             				</h:column>
             			
             			</h:dataTable>

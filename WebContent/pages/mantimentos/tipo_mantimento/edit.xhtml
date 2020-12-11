@@ -12,8 +12,8 @@
 
   <title>Reppy - Mantimentos</title>
   <f:metadata>
-    <f:viewParam name="id" value="#{usuarioController.usuario.id}"/>
-    <f:viewAction action="#{usuarioController.carregarPeloId}"/>
+    <f:viewParam name="id" value="#{tipoMantimentosController.tipoMantimento.id}"/>
+    <f:viewAction action="#{tipoMantimentosController.carregarPeloId}"/>
   </f:metadata>
   
 
@@ -166,20 +166,19 @@
           <div class="card shadow mb-4">
             <div class="card-body">
               <h:form>
-             	<div class="form-group">
-                    <label for="idNome">Nome</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.senha}"/>
-                </div> 
-              	 		
-                <div class="form-group">
+              	<div class="form-group">
+				    <label for="idNome">Nome</label>
+				    <h:inputText class="form-control form-control-lg" id="idNome" value="${tipoMantimentosController.tipoMantimento.nome}"/>
+				</div>
+				<div class="form-group">
 				    <label for="idDescricao">Descrição</label>
-				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoUsuarioController.tipoUsuario.descricao}"/>
-				</div>               
+				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoMantimentosController.tipoMantimento.descricao}"/>
+				</div>
 				
 				<div class="form-group d-flex justify-content-between">
 					<a href="http://localhost:8080/reppy/pages/mantimentos/tipo_mantimento/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
-				</div> 
+					<h:commandButton id="salvar" value="Salvar" action="#{tipoMantimentosController.salvarDados}" class="btn btn-success btn-lg"/>
+				</div>
               </h:form>
             </div>
           </div>
