@@ -7,7 +7,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import dao.UsuarioDao;
+import dao.RecebimentosDao;
 import dao.TipoUsuarioDao;
+import modelo.Contas;
+import modelo.Recebimentos;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 
@@ -15,26 +18,52 @@ import modelo.Usuario;
 @ViewScoped
 public class RecebimentosController {
 	
-	private Usuario usuario = new Usuario();
-	private Integer IdTipoUsuario;
+	private Recebimentos recebimentos = new Recebimentos();
+	public Recebimentos getRecebimentos() {
+		return recebimentos;
+	}
+
+	public void setRecebimentos(Recebimentos recebimentos) {
+		this.recebimentos = recebimentos;
+	}
+
+	public Integer getIdConta() {
+		return IdConta;
+	}
+
+	public void setIdConta(Integer idConta) {
+		IdConta = idConta;
+	}
+
+	public Integer getIdUsuario() {
+		return IdUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		IdUsuario = idUsuario;
+	}
+
+	private Integer IdConta;
+	private Integer IdUsuario;
 	
 	public void salvar() {
 		
-	System.out.println("Salvando..." + usuario.getNome());
-		
-		UsuarioDao dao = new UsuarioDao();
+		RecebimentosDao dao = new RecebimentosDao();
 		
 		try {
 			
-			TipoUsuario t = new TipoUsuarioDao().listaPorId(IdTipoUsuario);
-			usuario.setTipoUsuario(t);
+			Usuario u = new Usuario();
+			recebimentos.setUsuario(u);
+			
+			Contas c = new Contas();
+			recebimentos.setConta(c);
 			
 			
-			if (usuario.getId() == null) {
-			dao.adiciona(usuario);
+			if (recebimentos.getId() == null) {
+			dao.adiciona(recebimentos);
 			}
 			else {
-			dao.atualiza(usuario);
+			dao.atualiza(recebimentos);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -43,19 +72,21 @@ public class RecebimentosController {
 			e.printStackTrace();
 		}
 		
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		recebimentos = new Recebimentos();
+		IdUsuario = null;
+		IdConta = null;
 	}
 	
 	public void cancelar() {
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		recebimentos = new Recebimentos();
+		IdUsuario = null;
+		IdConta = null;
 	}
 	
-	public List<Usuario> getTodosUsuarios(){
-		List<Usuario> lista = null;
+	public List<Recebimentos> getTodosRecebimentos(){
+		List<Recebimentos> lista = null;
 		try {
-			lista = new UsuarioDao().listaTodos();	
+			lista = new RecebimentosDao().listaTodos();	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {
@@ -65,14 +96,14 @@ public class RecebimentosController {
 	}
 	
 	public void carregarPeloId() {
-		UsuarioDao dao = new UsuarioDao();
+		RecebimentosDao dao = new RecebimentosDao();
 		
 
 		
 		
 		try {
-			usuario = dao.listaPorId(this.usuario.getId());
-			IdTipoUsuario = this.usuario.getTipoUsuario().getId();
+			recebimentos = dao.listaPorId(this.recebimentos.getId());
+			IdUsuario = this.getIdUsuario();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -81,13 +112,9 @@ public class RecebimentosController {
 	}
 	
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	public void remover(Usuario p) {
+	public void remover(Recebimentos p) {
 		try {	
-			new UsuarioDao().remove(p.getId());			
+			new RecebimentosDao().remove(p.getId());			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {
@@ -96,17 +123,19 @@ public class RecebimentosController {
 		
 	}
 	
-	public void carregar(Usuario p) {
-		usuario = p;
+	public void carregar(Recebimentos p) {
+		recebimentos = p;
 		
-		IdTipoUsuario = p.getTipoUsuario().getId();
+		IdUsuario = p.getUsuario().getId();
+		
+		IdConta = p.getConta().getId();
 	}
 	
-	public List<TipoUsuario> getTodosTiposUsuarios(){
+	public List<Usuario> getTodosUsuarios(){
 		
-		List<TipoUsuario> lista = null;
+		List<Usuario> lista = null;
 		try {
-		lista = new TipoUsuarioDao().listaTodos();
+		lista = new UsuarioDao().listaTodos();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {	
@@ -118,16 +147,9 @@ public class RecebimentosController {
 		return lista;
 	}
 	
-	public String redirecionar(Usuario u) {
-		this.usuario = u;
+	public String redirecionar(Recebimentos u) {
+		this.recebimentos = u;
 		return "edit?faces-redirect=true&includeViewParams=true";
 	}
 
-	public Integer getIdTipoUsuario() {
-		return IdTipoUsuario;
-	}
-
-	public void setIdTipoUsuario(Integer idTipoUsuario) {
-		this.IdTipoUsuario = idTipoUsuario;
-	}
 }

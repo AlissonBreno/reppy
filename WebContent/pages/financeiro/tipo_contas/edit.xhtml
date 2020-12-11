@@ -167,18 +167,18 @@
             <div class="card-body">
               <h:form>
              	<div class="form-group">
-                    <label for="idNome">Nome</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.senha}"/>
+                    <label for="idNome">Tipo</label>
+                    <h:inputText class="form-control form-control-lg" id="idNome" value="${tipoContasController.tipoContas.tipo}"/>
                 </div> 
               	 		
                 <div class="form-group">
-				    <label for="idDescricao">Descrição</label>
-				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoUsuarioController.tipoUsuario.descricao}"/>
+				    <label for="idDescricao">Credor</label>
+				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoContasController.tipoContas.credor}"/>
 				</div>               
 				
 				<div class="form-group d-flex justify-content-between">
 					<a href="http://localhost:8080/reppy/pages/financeiro/tipo_contas/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
+					<h:commandButton id="salvar" value="Salvar" action="#{tipoContasController.salvarDados}" class="btn btn-success btn-lg"/>
 				</div> 
               </h:form>
             </div>

@@ -17,11 +17,13 @@ public class TipoContasController {
 	private TipoContas tipoContas = new TipoContas();
 	
 	public void salvarDados() {
+		
+		System.out.println("Salvando..." + tipoContas.getTipo());
+		
 		TipoContasDao dao = new TipoContasDao();
 		
-		System.out.println("Id: " + tipoContas.getId());
-		System.out.println("Tipo: " + tipoContas.getTipo());
-		System.out.println("Credor: " + tipoContas.getCredor());
+		
+		
 		
 		try {
 			if(tipoContas.getId() == null) {				
@@ -39,7 +41,7 @@ public class TipoContasController {
 		
 	}
 	
-	public List<TipoContas> getTipoContas(){
+	public List<TipoContas> getTodosTipoContas(){
 		List<TipoContas> lista = null;
 		
 		try {

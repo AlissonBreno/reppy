@@ -163,16 +163,16 @@
               <h:form>
              	<div class="form-group">
                     <label for="idTipoConta">Tipo Conta</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idTipoConta" value="#{usuarioController.idTipoUsuario}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idTipoConta" value="#{contasController.idTipoUsuario}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+	                    <f:selectItems value ="#{contasController.todosTiposContas}"	
+	                    	var ="tipoContas" 
+	                    	itemLabel="#{tipoContas.tipo}"
+                    		itemValue="#{tipoContas.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div>
-             	<div class="form-group">
+          	<div class="form-group">
                     <label for="idStatus">Status</label>
                     <h:selectOneMenu class="form-control form-control-lg" id="idStatus" value="#{usuarioController.idTipoUsuario}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
@@ -182,7 +182,7 @@
                     		itemValue="#{tipoUsuario.id}" 
                     	/>
                   </h:selectOneMenu>
-                </div>
+                </div> 
               	 		
                 <div class="form-group">
                     <label for="idValor">Valor Conta</label>

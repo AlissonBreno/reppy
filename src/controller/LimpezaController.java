@@ -7,34 +7,62 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import dao.UsuarioDao;
-import dao.TipoUsuarioDao;
-import modelo.TipoUsuario;
+import dao.LimpezaDao;
+import dao.TipoLimpezaDao;
+import modelo.Limpeza;
+import modelo.TipoLimpeza;
 import modelo.Usuario;
 
 @ManagedBean
 @ViewScoped
 public class LimpezaController {
 	
-	private Usuario usuario = new Usuario();
-	private Integer IdTipoUsuario;
+	private Limpeza limpeza = new Limpeza();
+	private Integer idTipoLimpeza;
+	private Integer IdUsuario;
 	
+	public Limpeza getLimpeza() {
+		return limpeza;
+	}
+
+	public void setLimpeza(Limpeza limpeza) {
+		this.limpeza = limpeza;
+	}
+
+	public Integer getIdTipoLimpeza() {
+		return idTipoLimpeza;
+	}
+
+	public void setIdTipoLimpeza(Integer idTipoLimpeza) {
+		this.idTipoLimpeza = idTipoLimpeza;
+	}
+
+	public Integer getIdUsuario() {
+		return IdUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		IdUsuario = idUsuario;
+	}
+
 	public void salvar() {
 		
-	System.out.println("Salvando..." + usuario.getNome());
-		
-		UsuarioDao dao = new UsuarioDao();
+		LimpezaDao dao = new LimpezaDao();
 		
 		try {
 			
-			TipoUsuario t = new TipoUsuarioDao().listaPorId(IdTipoUsuario);
-			usuario.setTipoUsuario(t);
+			TipoLimpeza t = new TipoLimpezaDao().listaPorId(idTipoLimpeza);
+			limpeza.setTipoLimpeza(t);
+			
+			Usuario i = new UsuarioDao().listaPorId(IdUsuario);
+			limpeza.setUsuario(i);
 			
 			
-			if (usuario.getId() == null) {
-			dao.adiciona(usuario);
+			if (limpeza.getId() == null) {
+			dao.adiciona(limpeza);
 			}
 			else {
-			dao.atualiza(usuario);
+			dao.atualiza(limpeza);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -43,19 +71,21 @@ public class LimpezaController {
 			e.printStackTrace();
 		}
 		
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		limpeza = new Limpeza();
+		idTipoLimpeza = null;
+		IdUsuario = null;
 	}
 	
 	public void cancelar() {
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		limpeza = new Limpeza();
+		IdUsuario = null;
+		idTipoLimpeza = null;
 	}
 	
-	public List<Usuario> getTodosUsuarios(){
-		List<Usuario> lista = null;
+	public List<Limpeza> getTodasLimpezas(){
+		List<Limpeza> lista = null;
 		try {
-			lista = new UsuarioDao().listaTodos();	
+			lista = new LimpezaDao().listaTodos();	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {
@@ -65,14 +95,15 @@ public class LimpezaController {
 	}
 	
 	public void carregarPeloId() {
-		UsuarioDao dao = new UsuarioDao();
+		LimpezaDao dao = new LimpezaDao();
 		
 
 		
 		
 		try {
-			usuario = dao.listaPorId(this.usuario.getId());
-			IdTipoUsuario = this.usuario.getTipoUsuario().getId();
+			limpeza = dao.listaPorId(this.limpeza.getId());
+			IdUsuario = this.getIdUsuario();
+			idTipoLimpeza = this.getIdTipoLimpeza();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -80,14 +111,9 @@ public class LimpezaController {
 		}
 	}
 	
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	public void remover(Usuario p) {
+	public void remover(Limpeza p) {
 		try {	
-			new UsuarioDao().remove(p.getId());			
+			new LimpezaDao().remove(p.getId());			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {
@@ -96,38 +122,16 @@ public class LimpezaController {
 		
 	}
 	
-	public void carregar(Usuario p) {
-		usuario = p;
+	public void carregar(Limpeza p) {
+		limpeza = p;
 		
-		IdTipoUsuario = p.getTipoUsuario().getId();
+		IdUsuario = p.getUsuario().getId();
 	}
+
 	
-	public List<TipoUsuario> getTodosTiposUsuarios(){
-		
-		List<TipoUsuario> lista = null;
-		try {
-		lista = new TipoUsuarioDao().listaTodos();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}catch (SQLException e) {	
-			e.printStackTrace();
-		}
-		
-		
-		
-		return lista;
-	}
-	
-	public String redirecionar(Usuario u) {
-		this.usuario = u;
+	public String redirecionar(Limpeza u) {
+		this.limpeza = u;
 		return "edit?faces-redirect=true&includeViewParams=true";
 	}
 
-	public Integer getIdTipoUsuario() {
-		return IdTipoUsuario;
-	}
-
-	public void setIdTipoUsuario(Integer idTipoUsuario) {
-		this.IdTipoUsuario = idTipoUsuario;
-	}
 }
