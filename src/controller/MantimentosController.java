@@ -6,35 +6,48 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import dao.LocalMantimentosDao;
+import dao.MantimentosDao;
+import dao.TipoMantimentosDao;
 import dao.UsuarioDao;
-import dao.TipoUsuarioDao;
-import modelo.TipoUsuario;
+
+import modelo.LocalMantimentos;
+import modelo.Mantimentos;
+import modelo.TipoMantimentos;
 import modelo.Usuario;
 
 @ManagedBean
 @ViewScoped
 public class MantimentosController {
 	
-	private Usuario usuario = new Usuario();
-	private Integer IdTipoUsuario;
+	private Mantimentos mantimentos = new Mantimentos();
+	private Integer idTipoMantimentos;
+	private Integer idLocalMantimentos;
+	private Integer idUsuario;
 	
 	public void salvar() {
 		
-	System.out.println("Salvando..." + usuario.getNome());
+		System.out.println("Salvando..." + mantimentos.getId());
 		
-		UsuarioDao dao = new UsuarioDao();
+		MantimentosDao dao = new MantimentosDao();
 		
 		try {
 			
-			TipoUsuario t = new TipoUsuarioDao().listaPorId(IdTipoUsuario);
-			usuario.setTipoUsuario(t);
+			TipoMantimentos tm = new TipoMantimentosDao().listaPorId(idTipoMantimentos);
+			mantimentos.setTipoMantimentos(tm);
+			
+			LocalMantimentos lm = new LocalMantimentosDao().listaPorId(idLocalMantimentos);
+			mantimentos.setLocalMantimentos(lm);
+			
+			Usuario u = new UsuarioDao().listaPorId(idUsuario);
+			mantimentos.setUsuario(u);
 			
 			
-			if (usuario.getId() == null) {
-			dao.adiciona(usuario);
+			if (mantimentos.getId() == null) {
+			dao.adiciona(mantimentos);
 			}
 			else {
-			dao.atualiza(usuario);
+			dao.atualiza(mantimentos);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -43,19 +56,23 @@ public class MantimentosController {
 			e.printStackTrace();
 		}
 		
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		mantimentos = new Mantimentos();
+		idTipoMantimentos = null;
+		idLocalMantimentos = null;
+		idUsuario = null;
 	}
 	
 	public void cancelar() {
-		usuario = new Usuario();
-		IdTipoUsuario = null;
+		mantimentos = new Mantimentos();
+		idTipoMantimentos = null;
+		idLocalMantimentos = null;
+		idUsuario = null;
 	}
 	
-	public List<Usuario> getTodosUsuarios(){
-		List<Usuario> lista = null;
+	public List<Mantimentos> getTodosMantimentos(){
+		List<Mantimentos> lista = null;
 		try {
-			lista = new UsuarioDao().listaTodos();	
+			lista = new MantimentosDao().listaTodos();	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {
@@ -65,14 +82,14 @@ public class MantimentosController {
 	}
 	
 	public void carregarPeloId() {
-		UsuarioDao dao = new UsuarioDao();
-		
-
-		
+		MantimentosDao dao = new MantimentosDao();
 		
 		try {
-			usuario = dao.listaPorId(this.usuario.getId());
-			IdTipoUsuario = this.usuario.getTipoUsuario().getId();
+			mantimentos = dao.listaPorId(this.mantimentos.getId());
+			idTipoMantimentos = this.mantimentos.getTipoMantimentos().getId();
+			idLocalMantimentos = this.mantimentos.getLocalMantimentos().getId();
+			idUsuario = this.mantimentos.getUsuario().getId();
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -80,10 +97,7 @@ public class MantimentosController {
 		}
 	}
 	
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
+
 	
 	public void remover(Usuario p) {
 		try {	
@@ -96,38 +110,91 @@ public class MantimentosController {
 		
 	}
 	
-	public void carregar(Usuario p) {
-		usuario = p;
+	public void carregar(Mantimentos p) {
+		mantimentos = p;
 		
-		IdTipoUsuario = p.getTipoUsuario().getId();
+		idTipoMantimentos = p.getTipoMantimentos().getId();
+		idLocalMantimentos = p.getLocalMantimentos().getId();
+		idUsuario = p.getUsuario().getId();
 	}
 	
-	public List<TipoUsuario> getTodosTiposUsuarios(){
+	public List<TipoMantimentos> getTodosTiposMantimentos(){
 		
-		List<TipoUsuario> lista = null;
+		List<TipoMantimentos> lista = null;
 		try {
-		lista = new TipoUsuarioDao().listaTodos();
+		lista = new TipoMantimentosDao().listaTodos();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch (SQLException e) {	
 			e.printStackTrace();
 		}
 		
+		return lista;
+	}
+	
+	public List<LocalMantimentos> getTodosLocalMantimentos(){
 		
+		List<LocalMantimentos> lista = null;
+		try {
+		lista = new LocalMantimentosDao().listaTodos();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {	
+			e.printStackTrace();
+		}
 		
 		return lista;
 	}
 	
-	public String redirecionar(Usuario u) {
-		this.usuario = u;
+	public List<Usuario> getTodosUsuarios(){
+		
+		List<Usuario> lista = null;
+		try {
+		lista = new UsuarioDao().listaTodos();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {	
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	public String redirecionar(Mantimentos u) {
+		this.mantimentos = u;
 		return "edit?faces-redirect=true&includeViewParams=true";
 	}
 
-	public Integer getIdTipoUsuario() {
-		return IdTipoUsuario;
+	public Mantimentos getMantimentos() {
+		return mantimentos;
 	}
 
-	public void setIdTipoUsuario(Integer idTipoUsuario) {
-		this.IdTipoUsuario = idTipoUsuario;
+	public void setMantimentos(Mantimentos mantimentos) {
+		this.mantimentos = mantimentos;
 	}
+
+	public Integer getIdTipoMantimentos() {
+		return idTipoMantimentos;
+	}
+
+	public void setIdTipoMantimentos(Integer idTipoMantimentos) {
+		this.idTipoMantimentos = idTipoMantimentos;
+	}
+
+	public Integer getIdLocalMantimentos() {
+		return idLocalMantimentos;
+	}
+
+	public void setIdLocalMantimentos(Integer idLocalMantimentos) {
+		this.idLocalMantimentos = idLocalMantimentos;
+	}
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 }

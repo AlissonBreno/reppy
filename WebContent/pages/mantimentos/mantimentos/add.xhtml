@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
-<html lang="pt_br" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html lang="pt_br" xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://xmlns.jcp.org/jsf/html" 
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:d="http://xmlns.jcp.org/jsf/core"
+	  xmlns:e="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 
@@ -163,53 +167,53 @@
               <h:form>
              	<div class="form-group">
                     <label for="idNome">Nome</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${usuarioController.usuario.senha}"/>
+                    <h:inputText class="form-control form-control-lg" id="idNome" value="${mantimentosController.mantimentos.nome}"/>
                 </div> 
                 
                 <div class="form-group">
                     <label for="idValidade">Validade</label>
-                    <h:inputText class="form-control form-control-lg" id="idValidade" value="${usuarioController.usuario.senha}"/>
+                    <h:inputText class="form-control form-control-lg" id="idValidade" value="${mantimentosController.mantimentos.validade}"/>
                 </div>
               	 		
                 <div class="form-group">
                     <label for="idTipo">Tipo</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idTipo" value="#{usuarioController.idTipoUsuario}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idTipo" value="#{mantimentosController.mantimentos.tipoMantimentos}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+	                    <f:selectItems value ="#{mantimentosController.todosTiposMantimentos}"	
+	                    	var ="tiposMantimentos" 
+	                    	itemLabel="#{tiposMantimentos.nome}"
+                    		itemValue="#{tiposMantimentos.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div>
                 
                 <div class="form-group">
                     <label for="idLugar">Lugar</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idLugar" value="#{usuarioController.idTipoUsuario}">
-	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+                    <h:selectOneMenu class="form-control form-control-lg" id="idLugar" value="#{mantimentosController.mantimentos.localMantimentos}">
+	                    <d:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
+	                    <d:selectItems value ="#{mantimentosController.todosLocalMantimentos}"	
+	                    	var ="localMantimentos" 
+	                    	itemLabel="#{localMantimentos.nome}"
+                    		itemValue="#{localMantimentos.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div> 
                 
                 <div class="form-group">
                     <label for="idMorador">Morador</label>
-                    <h:selectOneMenu class="form-control form-control-lg" id="idMorador" value="#{usuarioController.idTipoUsuario}">
+                    <h:selectOneMenu class="form-control form-control-lg" id="idMorador" value="#{mantimentosController.mantimentos.usuario}">
 	                    <f:selectItem itemLabel = "Selecionar" noSelectionOption="true"/>
-	                    <f:selectItems value ="#{usuarioController.todosTiposUsuarios}"	
-	                    	var ="tipoUsuario" 
-	                    	itemLabel="#{tipoUsuario.name}"
-                    		itemValue="#{tipoUsuario.id}" 
+	                    <f:selectItems value ="#{mantimentosController.todosUsuarios}"	
+	                    	var ="usuario" 
+	                    	itemLabel="#{usuario.nome}"
+                    		itemValue="#{usuario.id}" 
                     	/>
                   </h:selectOneMenu>
                 </div>             
 				
 				<div class="form-group d-flex justify-content-between">
 					<a href="http://localhost:8080/reppy/pages/mantimentos/mantimentos/list.xhtml" type="button" class="btn btn-primary btn-lg">Voltar</a>
-					<h:commandButton id="salvar" value="Salvar" action="#{usuarioController.salvar}" class="btn btn-success btn-lg"/>
+					<h:commandButton id="salvar" value="Salvar" action="#{mantimentosController.salvar}" class="btn btn-success btn-lg"/>
 				</div> 
               </h:form>
             </div>

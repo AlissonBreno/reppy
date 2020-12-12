@@ -163,7 +163,7 @@
           <div class="card shadow mb-4">
             	<div class="card-body">
             		<h:form>
-            			<h:dataTable value="#{usuarioController.todosUsuarios}" var="usuario" class="table table-hover">
+            			<h:dataTable value="#{mantimentosController.todosMantimentos}" var="mantimento" class="table table-hover">
             				
             				<h:column>
             					<f:facet name="header">
@@ -180,23 +180,7 @@
 			                            Nome
 			                        </h:outputLabel>
 			                    </f:facet>
-            					<h:outputText value="Carne"/>
-            				</h:column>
-            				<h:column class="text-center">
-            					<f:facet name="header" >
-            						<h:outputLabel class="col-8">
-			                            Validade
-			                        </h:outputLabel>
-			                    </f:facet>
-            					<h:outputText value="10/12/2020"/>
-            				</h:column>
-            				<h:column class="text-center">
-            					<f:facet name="header" >
-            						<h:outputLabel class="col-8">
-			                            Local
-			                        </h:outputLabel>
-			                    </f:facet>
-            					<h:outputText value="Geladeira"/>
+            					<h:outputText value="#{mantimento.nome}"/>
             				</h:column>
             				<h:column>
             					<f:facet name="header" >
@@ -204,8 +188,8 @@
 			                            Ações
 			                        </h:outputLabel>
 			                    </f:facet> 
-            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{usuarioController.redirecionar(usuario)}" value="Edit"/>
-								<h:commandLink class="btn btn-danger" action="#{usuarioController.remover(usuario)}" value="Delete"/>
+            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{mantimentosController.redirecionar(mantimento)}" value="Edit"/>
+								<h:commandLink class="btn btn-danger" action="#{mantimentosController.remover(mantimento)}" value="Delete"/>
             				</h:column>
             			
             			</h:dataTable>

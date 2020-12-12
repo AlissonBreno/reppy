@@ -8,7 +8,7 @@ public class Conexao {
 	private static Connection conexao;
 	private String banco = "reppy"; // nome do BD
 	private String login = "root"; // login do mysql
-	private String senha = "root"; // senha do mysql
+	private String senha = ""; // senha do mysql
 
 	public Conexao() throws ClassNotFoundException, SQLException  {
 		// carrega o drive

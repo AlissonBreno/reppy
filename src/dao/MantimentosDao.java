@@ -6,40 +6,39 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
-import modelo.TipoUsuario;
+import modelo.LocalMantimentos;
+import modelo.Mantimentos;
+import modelo.TipoMantimentos;
 import modelo.Usuario;
 
 public class MantimentosDao{
 	
-	public void adiciona(Usuario p) throws ClassNotFoundException, SQLException {
-		String sql = 
-			"INSERT INTO Usuario ( login, senha, Nome, Telefone, idTipoUsuario )" +
-		"VALUES (?, ?, ?, ?, ?)";
+	public void adiciona(Mantimentos m) throws ClassNotFoundException, SQLException {
+		String sql = "INSERT INTO mantimentos (nome, validade, idTipoMantimentoS, idLocalMantimentoS, idUsuario)" +
+					 "VALUES(?, ?, ?, ?, ?)";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1,  p.getLogin());
-		comandoSql.setString(2, p.getSenha());
-		comandoSql.setString(3, p.getNome());
-		comandoSql.setString(4, p.getTelefone());
-		comandoSql.setInt(5, p.getTipoUsuario().getId());
+		comandoSql.setString(1, m.getNome());
+		comandoSql.setString(2, m.getValidade());
+		comandoSql.setInt(3, m.getTipoMantimentos().getId());
+		comandoSql.setInt(4, m.getLocalMantimentos().getId());
+		comandoSql.setInt(5, m.getUsuario().getId());
 		
 		comandoSql.execute();
 		Conexao.getInstance().commit();
 	}
 
-	public void atualiza(Usuario p) throws ClassNotFoundException, SQLException {
+	public void atualiza(Mantimentos m) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"UPDATE Usuario SET login=?, senha=?, Nome=?, "
-			+ "Telefone=?, idTipoUsuario=? WHERE idUsuario=?";
+			"UPDATE mantimentos SET nome=?, validade=?, idTipoMantimentoS=?, "
+			+ "idLocalMantimentoS=?, idUsuario=? WHERE idMantimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1,  p.getLogin());
-		comandoSql.setString(2, p.getSenha());
-		comandoSql.setString(3, p.getNome());
-		comandoSql.setString(4, p.getTelefone());
-		comandoSql.setInt(5, p.getTipoUsuario().getId());
-		comandoSql.setInt(6, p.getId());
+		comandoSql.setString(1, m.getNome());
+		comandoSql.setString(2, m.getValidade());
+		comandoSql.setInt(3, m.getTipoMantimentos().getId());
+		comandoSql.setInt(4, m.getLocalMantimentos().getId());
+		comandoSql.setInt(5, m.getUsuario().getId());
 		
 		comandoSql.execute();
 		Conexao.getInstance().commit();
@@ -47,7 +46,7 @@ public class MantimentosDao{
 	
 	public void remove(int id) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"DELETE FROM Usuario WHERE idUsuario=?";
+			"DELETE FROM mantimentos WHERE idMantimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setInt(1, id);
@@ -56,61 +55,79 @@ public class MantimentosDao{
 		Conexao.getInstance().commit();
 	}
 	
-	public List<Usuario> listaTodos() throws ClassNotFoundException, SQLException{
-		List<Usuario> lista = new LinkedList<Usuario>();
+	public List<Mantimentos> listaTodos() throws ClassNotFoundException, SQLException{
+		List<Mantimentos> lista = new LinkedList<Mantimentos>();
 		
-		String sql = "SELECT * FROM Usuario inner join TipoUsuario on " +
-					"usuario.idTipoUsuario = TipoUsuario.idTipoUsuario";
+		String sql = "select * from mantimentos \r\n" + 
+					 "inner join usuario ON usuario.idUsuario = mantimentos.idUsuario " + 
+					 "inner join localmantimentos on localmantimentos.idLocalmantimentos = mantimentos.idLocalMantimentos " + 
+					 "inner join tipomantimentos on tipomantimentos.idTipoMantimentos = mantimentos.idTipoMantimentos";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		
 		ResultSet rs = comandoSql.executeQuery();
 		
 		while (rs.next()) {
-			Usuario p = new Usuario();
-			p.setId(rs.getInt("idUsuario"));
-			p.setLogin(rs.getString("login"));
-			p.setSenha(rs.getString("senha"));
-			p.setNome(rs.getString("Nome"));
-			p.setTelefone(rs.getString("Telefone"));
+			Mantimentos m = new Mantimentos();
+			m.setId(rs.getInt("idMantimentos"));
+			m.setNome(rs.getString("nome"));
+			m.setValidade(rs.getString("validade"));
 			
-			TipoUsuario t = new TipoUsuario();
+			TipoMantimentos tm = new TipoMantimentos();
+			tm.setId(rs.getInt("idTipoMantimentos"));
+			tm.setNome(rs.getString("nome"));
+			m.setTipoMantimentos(tm);
 			
-			t.setId(rs.getInt("idTipoUsuario"));
-			t.setName(rs.getString("Nome"));
+			LocalMantimentos lm = new LocalMantimentos();
+			lm.setId(rs.getInt("idLocalMantimentoS"));
+			lm.setNome(rs.getString("nome"));
+			m.setLocalMantimentos(lm);
 			
-			p.setTipoUsuario(t);
-			
-			lista.add(p);
+			Usuario u = new Usuario();
+			u.setId(rs.getInt("idUsuario"));
+			u.setNome(rs.getString("nome"));
+			m.setUsuario(u);
+
+			lista.add(m);
 		}
 		
 		return lista;
 	}
 	
-	public Usuario listaPorId(int id) throws ClassNotFoundException, SQLException{
-		String sql = "SELECT * FROM Usuario WHERE idUsuario=?";
+	public Mantimentos listaPorId(int id) throws ClassNotFoundException, SQLException{
+		String sql = "SELECT * FROM mantimentos WHERE idMantimentos=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setInt(1, id);
 		
 		ResultSet rs = comandoSql.executeQuery();
 		
-		Usuario p = null;
+		Mantimentos m = null;
 		
 		if (rs.next()) {
-			p = new Usuario();
-			p.setId(rs.getInt("idUsuario"));
-			p.setLogin(rs.getString("login"));
-			p.setSenha(rs.getString("senha"));
-			p.setNome(rs.getString("Nome"));
-			p.setTelefone(rs.getString("Telefone"));
+			m = new Mantimentos();
+			m.setId(rs.getInt("idMantimentos"));
+			m.setNome(rs.getString("nome"));
+			m.setValidade(rs.getString("validade"));
 			
-			TipoUsuario tu = new TipoUsuario();
-			tu.setId(rs.getInt("idTipoUsuario"));
+			TipoMantimentos tm = new TipoMantimentos();
+			tm.setId(rs.getInt("idTipoMantimentos"));
+			tm.setNome(rs.getString("nome"));
+			m.setTipoMantimentos(tm);
 			
-			p.setTipoUsuario(tu);
+			LocalMantimentos lm = new LocalMantimentos();
+			lm.setId(rs.getInt("idLocalMantimentoS"));
+			lm.setNome(rs.getString("nome"));
+			m.setLocalMantimentos(lm);
+			
+			Usuario u = new Usuario();
+			u.setId(rs.getInt("idUsuario"));
+			u.setNome(rs.getString("nome"));
+			m.setUsuario(u);
+			
+		
 		}
 		
-		return p;
+		return m;
 	}
 }
