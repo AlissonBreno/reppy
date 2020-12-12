@@ -2,7 +2,7 @@ package modelo;
 
 public class TipoContas {
 	private Integer id;
-	private String Tipo;
+	private String TipodeConta;
 	private String Credor;
 	
 	public TipoContas() {
@@ -17,12 +17,12 @@ public class TipoContas {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return Tipo;
+	public String getTipodeConta() {
+		return TipodeConta;
 	}
 
-	public void setTipo(String tipo) {
-		this.Tipo = tipo;
+	public void setTipodeConta(String tipodeConta) {
+		this.TipodeConta = tipodeConta;
 	}
 
 	public String getCredor() {

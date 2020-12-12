@@ -12,8 +12,8 @@
 
   <title>Reppy - Financeiro</title>
   <f:metadata>
-    <f:viewParam name="id" value="#{usuarioController.usuario.id}"/>
-    <f:viewAction action="#{usuarioController.carregarPeloId}"/>
+    <f:viewParam name="id" value="#{tipoContasController.tipoContas.id}"/>
+    <f:viewAction action="#{tipoContasController.carregarPeloId}"/>
   </f:metadata>
   
 
@@ -167,13 +167,13 @@
             <div class="card-body">
               <h:form>
              	<div class="form-group">
-                    <label for="idNome">Tipo</label>
-                    <h:inputText class="form-control form-control-lg" id="idNome" value="${tipoContasController.tipoContas.tipo}"/>
+                    <label for="idTipo">Tipo</label>
+                    <h:inputText class="form-control form-control-lg" id="idTipo" value="${tipoContasController.tipoContas.tipodeConta}"/>
                 </div> 
               	 		
                 <div class="form-group">
-				    <label for="idDescricao">Credor</label>
-				    <h:inputTextarea class="form-control form-control-lg" id="idDescricao" value="${tipoContasController.tipoContas.credor}"/>
+				    <label for="idCredor">Credor</label>
+				    <h:inputTextarea class="form-control form-control-lg" id="idCredor" value="${tipoContasController.tipoContas.credor}"/>
 				</div>               
 				
 				<div class="form-group d-flex justify-content-between">

@@ -18,7 +18,7 @@ public class TipoContasController {
 	
 	public void salvarDados() {
 		
-		System.out.println("Salvando..." + tipoContas.getTipo());
+		System.out.println("Salvando..." + tipoContas.getTipodeConta());
 		
 		TipoContasDao dao = new TipoContasDao();
 		
@@ -86,7 +86,7 @@ public class TipoContasController {
 		}
 	}
 	
-	public TipoContas getTipoConta() {
+	public TipoContas getTipoContas() {
 		return tipoContas;
 	}
 

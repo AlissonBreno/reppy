@@ -180,7 +180,7 @@
 			                            Tipo
 			                        </h:outputLabel>
 			                    </f:facet>
-            					<h:outputText value="#{tipoConta.tipo}"/>
+            					<h:outputText value="#{tipoConta.tipodeConta}"/>
             				</h:column>
             				<h:column>
             					<f:facet name="header" >
@@ -188,8 +188,8 @@
 			                            Ações
 			                        </h:outputLabel>
 			                    </f:facet> 
-            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{usuarioController.redirecionar(usuario)}" value="Edit"/>
-								<h:commandLink class="btn btn-danger" action="#{usuarioController.remover(usuario)}" value="Delete"/>
+            					<h:commandLink class="btn btn-primary ml-5 mr-2 edita" action="#{tipoContasController.redirecionar(tipoConta)}" value="Edit"/>
+								<h:commandLink class="btn btn-danger" action="#{tipoContasController.remover(tipoConta)}" value="Delete"/>
             				</h:column>
             			
             			</h:dataTable>

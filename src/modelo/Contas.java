@@ -3,6 +3,10 @@ package modelo;
 public class Contas {
 	private Integer id;
 	private Double Valor;
+	public void setValor(Double valor) {
+		Valor = valor;
+	}
+
 	private String Vencimento; 
 	private TipoContas TipoContas;
 
@@ -26,10 +30,6 @@ public class Contas {
 	}
 	public Double getValor() {
 		return Valor;
-	}
-
-	public void setValor(Double valor) {
-		this.Valor = valor;
 	}
 
 	public TipoContas getTipoContas() {

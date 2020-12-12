@@ -8,14 +8,11 @@ import java.util.List;
 
 import modelo.Contas;
 import modelo.TipoContas;
-import modelo.TipoUsuario;
-import modelo.Usuario;
-
 public class ContasDao{
 	
 	public void adiciona(Contas p) throws ClassNotFoundException, SQLException {
 		String sql = 
-			"INSERT INTO contas ( Valor, Vencimento, idTipoConta )" +
+			"INSERT INTO contas ( Valor, Vencimento, idTiposdeConta )" +
 		"VALUES (?, ?, ?)";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
@@ -30,7 +27,7 @@ public class ContasDao{
 	public void atualiza(Contas p) throws ClassNotFoundException, SQLException {
 		String sql = 
 			"UPDATE contas SET Valor=?, Vencimento=?, "
-			+ "idTipoConta=? WHERE idConta=?";
+			+ "idTiposdeConta=? WHERE idContas=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		comandoSql.setDouble(1,  p.getValor());
@@ -57,7 +54,7 @@ public class ContasDao{
 		List<Contas> lista = new LinkedList<Contas>();
 		
 		String sql = "SELECT * FROM contas inner join tiposdeconta on " +
-					"contas.idTipoContas = tiposdeconta.idTipoConta";
+					"contas.idTiposdeConta = tiposdeconta.idTiposdeConta";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
 		
@@ -72,7 +69,7 @@ public class ContasDao{
 			
 			TipoContas t = new TipoContas();
 			
-			t.setId(rs.getInt("idTipoContas"));
+			t.setId(rs.getInt("idTiposdeConta"));
 			t.setCredor(rs.getString("Credor"));
 			
 			
@@ -102,7 +99,7 @@ public class ContasDao{
 			p.setVencimento(rs.getString("Vencimento"));
 			
 			TipoContas tu = new TipoContas();
-			tu.setId(rs.getInt("idTipoContas"));
+			tu.setId(rs.getInt("idTiposdeConta"));
 			
 			p.setTipoContas(tu);
 		}

@@ -16,7 +16,7 @@ public class TipoContasDao {
 		String sql = "INSERT INTO tiposdeconta (TipodeConta, Credor) VALUE (?, ?)";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1, tu.getTipo());
+		comandoSql.setString(1, tu.getTipodeConta());
 		comandoSql.setString(2, tu.getCredor());
 		comandoSql.execute();
 		
@@ -28,7 +28,7 @@ public class TipoContasDao {
 		String sql = "UPDATE tiposdeconta SET TipodeConta=?, Credor=? WHERE idTiposdeConta=?";
 		
 		PreparedStatement comandoSql = Conexao.getInstance().prepareStatement(sql);
-		comandoSql.setString(1, tu.getTipo());
+		comandoSql.setString(1, tu.getTipodeConta());
 		comandoSql.setString(2, tu.getCredor());
 		comandoSql.setInt(3, tu.getId());
 		
@@ -59,7 +59,7 @@ public class TipoContasDao {
 		while (rs.next()) {
 			TipoContas tu = new TipoContas();
 			tu.setId(rs.getInt("idTiposdeConta"));
-			tu.setTipo(rs.getString("Tipo"));
+			tu.setTipodeConta(rs.getString("TipodeConta"));
 			tu.setCredor(rs.getString("Credor"));
 			lista.add(tu);
 		}
@@ -81,7 +81,7 @@ public class TipoContasDao {
 		if (rs.next()) {
 			tu = new TipoContas();
 			tu.setId(rs.getInt("idTiposdeConta"));
-			tu.setTipo(rs.getString("Tipo"));
+			tu.setTipodeConta(rs.getString("TipodeConta"));
 			tu.setCredor(rs.getString("Credor"));
 		}
 		
